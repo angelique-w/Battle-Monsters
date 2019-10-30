@@ -1,5 +1,7 @@
 .rowHeader {
     background-color: rgb(59, 58, 58);
-    height: 2vh;
+    height: 10vh;
     color: rgb(214, 86, 0);
+    font-size: 1.8rem;
+    text-align: center;
 }
