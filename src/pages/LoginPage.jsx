@@ -2,6 +2,7 @@ import React, {Component} from "react";
 
 
 import UsernameBanner from "../components/UsernameBanner";
+import Header from "../components/Header"
 
 
 class LoginPage extends Component {
@@ -13,8 +14,11 @@ class LoginPage extends Component {
     
     render() {
         return (
-        <UsernameBanner />
-
+        <>
+            <Header />
+            <UsernameBanner />
+            
+        </>
         )
     
         
