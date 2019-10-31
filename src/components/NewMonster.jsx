@@ -1,19 +1,19 @@
 import React from 'react';
-import { Button, Select, Option, Card } from 'antd';
+import { Button, Option, Card,  } from 'reactstrap';
 
 import CardNewMonster from './CardNewMonster';
 
 
 function NewMonster() {
-    const { Option } = Select;
-    const { Meta } = Card;
+   /* const { Option } = Select;
+    const { Meta } = Card; */
     
     return (
         <div>
             <h1>New Monster</h1>
-            <Select defaultValue="Choose your monster to customize" style={{ width: 300 }} >
+            {/* {<Select defaultValue="Choose your monster to customize" style={{ width: 300 }} >
                 <Option value="Choose your monster to customize">Choose your monster to customize</Option>
-            </Select>
+            </Select>} */}
             <Card
                 hoverable
                 style={{ width: 200 }}
