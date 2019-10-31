@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {Container, Row, Col} from "reactstrap"
+import {Container, Row, Col, Button} from "reactstrap"
 
 import apiCall from "./apiCall"
 import UserMonster from "../components/UserMonster"
@@ -13,9 +13,12 @@ class Battlezone extends Component {
             this.state={
                 username : "",
                 userMonster : {},
-                oponentMonster : {}
-            }
-        }
+                oponentMonster : {},
+                toDisplay : {
+                    message :"Ready for Battle"
+            },
+                isBattleStarted : false
+        }}
 
     componentDidMount(){
         const user = localStorage.getItem('username');
@@ -44,7 +47,7 @@ class Battlezone extends Component {
     }
 
 render() {
-    const {userMonster, oponentMonster} = this.state
+    const {userMonster, oponentMonster, toDisplay, isBattleStarted} = this.state
 
     return(
         <React.Fragment>
@@ -55,17 +58,18 @@ render() {
                         <UserMonster {...userMonster}/>
                     </Col>
                     <Col>
-                        <BattleDisplay  />
+                        <BattleDisplay {...toDisplay} />
                     </Col>
                     <Col>
                         <OponentMonster {...oponentMonster}/>
                     </Col>
+                
+                </Row>
                 <Row>
                     <Col>
+                    {isBattleStarted ? <p>battle started</p> :  <Button color="danger" onClick={()=> this.setState({isBattleStarted : true})}>Start Battle !</Button> }
 
                     </Col>
-
-                </Row>
 
 
                 </Row>

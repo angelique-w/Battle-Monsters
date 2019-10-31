@@ -1,13 +1,15 @@
 import React from "react"
+import {Container, Row} from "reactstrap"
 
-
-const BattleDisplay = () => {
+const BattleDisplay = ({message}) => {
 
 
     return(
-
-        <p>BattleDisplay</p>
-
+        <Container>
+            <Row>
+        <p>{message}</p>
+            </Row>
+        </Container>
     )
 
 
