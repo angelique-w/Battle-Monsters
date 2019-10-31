@@ -11,3 +11,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.name {
+  font-weight: bold;
+  color : black;
+  font-size: large;
+  font-family:"georgia";
+}
+.card {
+    background : burlywood;
+    border-radius: 20px;
+    border: 2px solid #73AD21;
+    margin-bottom: 30px;
+    box-shadow: 5px 10px 5px grey;
+  
+}
+img {
+  border-radius: 8px;
+}
+.action{
+  font-family:"Lucida Console";
+  font-size: large;
+}
+.attak{
+  font-style: italic;
+}
+.link {
+  text-decoration:none;
+}
+
