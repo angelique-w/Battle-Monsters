@@ -9,8 +9,8 @@ const ExistingMonster = ({ name, attack, defense, picture, attk1_name, attk1_val
     return (
         <React.Fragment>
             <Col xs={{size:3}}>
-<Link to="/battle" >
-        <Card  className="text-muted card" onClick={ ()=> { 
+<Link to="/battle" className ="link">
+        <Card className="text-muted" onClick={ ()=> { 
                 localStorage.setItem("monsterID" , id)
                 }}>
             
@@ -21,7 +21,7 @@ const ExistingMonster = ({ name, attack, defense, picture, attk1_name, attk1_val
                 </CardBody>
                 <img width="100%" src={picture ? picture : "https://i.pinimg.com/originals/f8/64/5b/f8645b8957654aed39cb675376cc1783.jpg"} alt="Card image cap" />
                 <CardBody>
-                <CardText>{description}</CardText>
+                <CardText className="description">{description}</CardText>
                 <CardText className="action">Attaque : {attack}</CardText>
                 <CardText className="action">Defense : {defense}</CardText>
                 <CardText className="attak">First attack : {attk1_name} {attk1_value} dmg </CardText>
