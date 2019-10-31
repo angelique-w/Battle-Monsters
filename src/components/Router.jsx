@@ -5,6 +5,7 @@ import LoginPage from "../pages/LoginPage"
 import SelectPage from "../pages/SelectPage"
 import CreatePage from "../pages/CreatePage"
 import Battle from "../pages/Battle"
+import Toto from "../pages/Toto"
 
 
 function MyRouter() {
