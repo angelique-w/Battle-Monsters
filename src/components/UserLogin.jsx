@@ -1,13 +1,14 @@
 import React, {Component} from "react"
-import {Row, Container, Button, Col} from "reactstrap"
+import {Row, Form, Input, Button} from "reactstrap"
 import {Redirect} from "react-router-dom"
+
 
 class UsernameBanner extends Component {
     constructor(props){
         super(props);
         this.state ={
             userName : "",
-            isLogged : true,
+            isLogged : false,
             usernameError : false
         }
         this.handleChange = this.handleChange.bind(this)
@@ -48,16 +49,8 @@ render() {
     if (this.state.isLogged) {
 
         return(
-            <Container>
-                <Row>
-                    <Col xs="12">
-                    Your userName {this.state.userName}
-                    <Button type="primary" onClick={()=> this.handleLogOut()}>
-                        Log out
-                    </Button>
-                    </Col>
-                </Row>
-            </Container>
+            <Redirect to="/select" />
+
         )
 
 
@@ -65,7 +58,20 @@ render() {
     else {
     return (
 
-    <Redirect to="/"/>
+        <Row>
+            <Form layout="inline" onSubmit={this.handleSubmit}>
+        <Input
+            placeholder="Username"
+            value={this.state.userName}
+            onChange={this.handleChange}
+            />
+        <Button color="primary" htmlType="submit">
+            Log in
+        </Button>
+        </Form>
+        </Row>
+
+            
 
         )
     }
