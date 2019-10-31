@@ -1,8 +1,9 @@
 import React, {Component} from "react";
+import {Container} from "reactstrap"
 
 
-import UsernameBanner from "../components/UsernameBanner";
 import Header from "../components/Header"
+import UserLogin from "../components/UserLogin"
 
 
 class LoginPage extends Component {
@@ -15,9 +16,10 @@ class LoginPage extends Component {
     render() {
         return (
         <>
-            <Header />
-            <UsernameBanner />
-            
+            <Container>
+                <Header />
+                <UserLogin />
+            </Container>
         </>
         )
     

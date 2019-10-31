@@ -1,13 +1,17 @@
 import React from 'react';
+import { Card } from 'reactstrap';
 
-function CardNewMonster() {
+function CardNewMonster({name, picture, attack, defense}) {
     return (
-        <div>
-            <img src="" alt=""/>
-            <h2>{}</h2>
-            <p>PV : {}</p>
-            <p>Attack : {}</p>
-        </div>
+        <Card
+            hoverable
+            style={{ width: 200 }}
+            cover={<img alt={name} src={picture} />}
+        >
+            <h3>{name}</h3>
+            <p>PV : {defense}</p>
+            <p>Attack : {attack}</p>
+        </Card>
     )
 }
 
