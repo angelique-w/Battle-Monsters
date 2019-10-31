@@ -1,31 +1,75 @@
 import React from 'react';
-import { Button, Option, Card,  } from 'reactstrap';
+import { Button } from 'reactstrap';
+import { Link } from "react-router-dom";
 
+import apiCall from './apiCall';
 import CardNewMonster from './CardNewMonster';
+import SelectMonster from './SelectMonster';
 
 
-function NewMonster() {
-   /* const { Option } = Select;
-    const { Meta } = Card; */
-    
-    return (
-        <div>
-            <h1>New Monster</h1>
-            {/* {<Select defaultValue="Choose your monster to customize" style={{ width: 300 }} >
-                <Option value="Choose your monster to customize">Choose your monster to customize</Option>
-            </Select>} */}
-            <Card
-                hoverable
-                style={{ width: 200 }}
-                cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-            >
-                <h3>Europe Street beat</h3>
-                <p>PV : {}</p>
-                <p>Attack : {}</p>
-            </Card>
-            <Button>Create New Monster</Button>
-        </div>
-    );
+class NewMonster extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            listMonsters: [],
+            selectIsClosed: true,
+            selectedMonster: {}
+        };
+
+        this.handleSelectIsClosed = this.handleSelectIsClosed.bind(this)
+        this.getMonster = this.getMonster.bind(this)
+    }
+
+    componentDidMount() {
+        apiCall
+            .get('/gogetthat')
+            .then(res => {
+                const datas = res.data;
+                this.setState({ listMonsters: datas });
+            })
+            .catch(err => console.log(err));
+    };
+
+    handleSelectIsClosed() {
+        const selectIsClosed = this.state;
+        console.log(selectIsClosed)
+        this.setState({ selectIsClosed: !this.state.selectIsClosed })
+    }
+
+    getMonster(monsterId) {
+        const monster = this.state.listMonsters.find(monster => monster.id === monsterId)
+        this.setState({ selectedMonster: monster })
+    }
+
+
+    render() {
+        const { listMonsters } = this.state
+        const { selectIsClosed } = this.state
+
+        if (selectIsClosed) {
+            console.log(this.state.selectIsClosed)
+            return (
+                <div>
+                    <Button onClick={this.handleSelectIsClosed}>New Monster</Button>
+                </div>
+            )
+        } else {
+            console.log(this.state.selectIsClosed)
+            return (
+                <div>
+                    <Button onClick={this.handleSelectIsClosed}>New Monster</Button>
+                    <SelectMonster monsters={this.state.listMonsters} getMonster={this.getMonster} />
+                    <CardNewMonster {...this.state.selectedMonster} />
+                    <Link to={{
+                        pathname: "/create",
+                        state: { ...this.state.selectedMonster }
+                    }}>
+                        <Button tag={Link} >Create New Monster</Button>
+                    </Link>
+                </div>
+            );
+        }
+    }
 }
 
 
