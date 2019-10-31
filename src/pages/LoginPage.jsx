@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 
 
-import UsernameBanner from "../components/UsernameBanner";
 import Header from "../components/Header"
+import UserLogin from "../components/UserLogin"
 
 
 class LoginPage extends Component {
@@ -16,7 +16,7 @@ class LoginPage extends Component {
         return (
         <>
             <Header />
-            <UsernameBanner />
+            <UserLogin />
             
         </>
         )
