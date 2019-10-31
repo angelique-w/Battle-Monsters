@@ -12,7 +12,7 @@ class ExistingMonsters extends Component{
             }
         }
     componentDidMount(){
-        apiCall.get("/gogetit")
+        apiCall.get("/item/gogetit")
         .then (res => 
             {
             const list = res.data
