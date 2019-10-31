@@ -50,7 +50,7 @@ class NewMonster extends React.Component {
             console.log(this.state.selectIsClosed)
             return (
                 <div>
-                    <Button onClick={this.handleSelectIsClosed}>New Monster</Button>
+                    <Button className="fixed" onClick={this.handleSelectIsClosed}>New Monster</Button>
                 </div>
             )
         } else {
