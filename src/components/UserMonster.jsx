@@ -1,13 +1,35 @@
 import React from "react"
+import {Container, Card, CardBody, CardTitle, CardText} from "reactstrap"
 
 
-const UserMonster = () => {
+const UserMonster = ({name, attack, defense, picture}) => {
 
 
-    return(
+    return( 
+        <>
+        <Container>
+        <Card>
+        <CardBody>
+            <CardTitle>{name}</CardTitle>
+        </CardBody>
+        <img width="100%" src={picture} alt={name} />
+        <CardBody>
+            <CardText>
+                Attack Power : {attack}
+            </CardText>
+            <CardText>
+                Defense Power : {defense}
+            </CardText>
+        </CardBody>
+    </Card>
 
-        <p>User Monster</p>
 
+
+        </Container>
+
+
+        
+        </>
     )
 
 

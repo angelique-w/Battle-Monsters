@@ -19,7 +19,6 @@ class Battlezone extends Component {
 
     componentDidMount(){
         const user = localStorage.getItem('username');
-        const monsterId = localStorage.getItem('monsterID');
 
         apiCall.get(`/user/gogetthisone/${user}`)
         .then(res => { 
@@ -28,11 +27,12 @@ class Battlezone extends Component {
                 const id = localStorage.getItem('monsterID')
                 return monster.id == id                   
                 });
-            const userMonster = monster[0]
-            console.log(userMonster)        
+            this.setState({userMonster : monster[0]})
+            console.log(this.state.userMonster)        
         })}
 
 render() {
+    const {userMonster, oponentMonster} = this.state
 
     return(
         <React.Fragment>
@@ -40,13 +40,13 @@ render() {
             <Container>
                 <Row>
                     <Col>
-                        <UserMonster />
+                        <UserMonster {...userMonster}/>
                     </Col>
                     <Col>
-                        <BattleDisplay />
+                        <BattleDisplay  />
                     </Col>
                     <Col>
-                        <OponentMonster />
+                        <OponentMonster {...oponentMonster}/>
                     </Col>
                 <Row>
                     <Col>
