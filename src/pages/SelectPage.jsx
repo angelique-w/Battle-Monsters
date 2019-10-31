@@ -4,11 +4,13 @@ import { Container, Row, Col } from "reactstrap"
 import Header from '../components/Header';
 import NewMonster from '../components/NewMonster';
 import ExistingMonsters from '../components/ExistingMonsters';
+import UsernameBanner from '../components/UsernameBanner';
 
 function SelectPage() {
     return (
         <div>
             <Header />
+            <UsernameBanner />
             <Container>
                 <Row>
                     <Row className="col-8">    
