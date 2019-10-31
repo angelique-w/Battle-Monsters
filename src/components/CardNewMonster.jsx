@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'antd';
+import { Card } from 'reactstrap';
 
 function CardNewMonster({name, picture, attack, defense}) {
     return (

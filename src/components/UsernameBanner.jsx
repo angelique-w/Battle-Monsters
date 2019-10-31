@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {Row, Form, Input,Icon, Button} from "antd"
+import {Row, Form, Input, Button} from "reactstrap"
 
 class UsernameBanner extends Component {
     constructor(props){
@@ -63,21 +63,17 @@ render() {
 
         <Row>
             <Form layout="inline" onSubmit={this.handleSubmit}>
-        <Form.Item validateStatus={this.usernameError ? 'error' : ''} help={this.usernameError || ''}>
         <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
               placeholder="Username"
               value={this.state.userName}
               onChange={this.handleChange}
             />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button color="primary" htmlType="submit">
             Log in
           </Button>
-        </Form.Item>
         </Form>
         </Row>
+
             
 
         )

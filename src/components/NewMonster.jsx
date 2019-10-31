@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'antd';
+import { Button } from 'reactstrap';
 import { Link } from "react-router-dom";
 
 import apiCall from './apiCall';
@@ -36,7 +36,8 @@ class NewMonster extends React.Component {
         this.setState({ selectIsClosed: !this.state.selectIsClosed })
     }
 
-    getMonster(monster) {
+    getMonster(monsterId) {
+        const monster = this.state.listMonsters.find(monster => monster.id === monsterId)
         this.setState({ selectedMonster: monster })
     }
 
