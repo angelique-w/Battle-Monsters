@@ -25,11 +25,23 @@ class Battlezone extends Component {
             const monsters = res.data
             const monster = monsters.filter( monster => {
                 const id = localStorage.getItem('monsterID')
-                return monster.id == id                   
+                return monster.id === id                   
                 });
             this.setState({userMonster : monster[0]})
             console.log(this.state.userMonster)        
-        })}
+        })
+    
+        apiCall.get(`/item/gogetit`)
+        .then (res => {
+            const monsters = res.data
+            const randomindex = Math.floor(Math.random()*monsters.length)
+            this.setState({oponentMonster : monsters[randomindex]})
+
+        })
+    
+    
+    
+    }
 
 render() {
     const {userMonster, oponentMonster} = this.state
