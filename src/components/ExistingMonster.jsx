@@ -8,14 +8,14 @@ const ExistingMonster = ({ name, attack, defense, picture, attk1_name, attk1_val
 
     return (
         <React.Fragment>
-            <Col xs={{size:3}}>
+            <Col xs={{size:6}}>
 <Link to="/battle" >
-        <Card  className="text-muted card" onClick={ ()=> { 
+        <Card  className="text-muted card " onClick={ ()=> { 
                 localStorage.setItem("monsterID" , id)
                 }}>
             
         
-            <CardBody >
+            <CardBody  >
                 <CardTitle className="name" >{name}</CardTitle>
                 
                 </CardBody>

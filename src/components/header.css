@@ -7,3 +7,7 @@
     display: flex;
     align-items: center;
 }
+
+div.col-12.text-center{
+    margin:15px;
+}
