@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Container, Row, Col, Button } from "reactstrap"
+import {Link} from "react-router-dom"
 
 import apiCall from "./apiCall"
 import UserMonster from "../components/UserMonster"
@@ -28,7 +29,8 @@ class Battlezone extends Component {
             feedMessages: [],
 
             isBattleStarted: false,
-            isPlaying: false
+            isGameOver: false,
+            userCanPlay : true,
         }
         this.handleAttack = this.handleAttack.bind(this)
     }
@@ -54,6 +56,7 @@ class Battlezone extends Component {
     }
 
     async handleAttack(nb) {
+        await this.setState({userCanPlay : false})
         let attackDatas = {}
         switch (nb) {
             case 1:
@@ -80,7 +83,7 @@ class Battlezone extends Component {
         this.setState({ oponentMonster: { ...this.state.oponentMonster, defense: newHP } })
 
 
-        sleep(2000)
+        sleep(1000)
 
         const oppNb = Math.floor(Math.random() * 3) + 1
 
@@ -95,28 +98,43 @@ class Battlezone extends Component {
                 break;
             case 3:
                 oppDatas = { attackName: this.state.oponentMonster.attk3_name, attackValue: Number(this.state.oponentMonster.attk3_value) }
-
+            break;
             default:
                 break;
         }
 
         console.log(oppNb)
 
-        const oppMessage = `${this.state.oponentMonster.name} is attacking ${this.state.userMonster.name} with ${oppDatas.name}, dealing ${oppDatas.attackValue} damages !`;
+        const oppMessage = `${this.state.oponentMonster.name} is attacking ${this.state.userMonster.name} with ${oppDatas.attackName}, dealing ${oppDatas.attackValue} damages !`;
         const newOppHP = (this.state.userMonster.defense - oppDatas.attackValue)
 
 
         this.setState({ feedMessages: [...this.state.feedMessages, oppMessage] })
-        this.setState({ userMonster: { ...this.state.userMonster, defense: newOppHP } })
+        await this.setState({ userMonster: { ...this.state.userMonster, defense: newOppHP } })
 
+        if (this.state.oponentMonster.defense <= 0){
+            this.setState({isGameOver : true})
+            this.setState({ feedMessages: [...this.state.feedMessages,"GAME OVER !!!", `'${this.state.userMonster.name} won !!! Shame on ${this.state.oponentMonster.name}'`] })
 
+        }
+        else if (this.state.userMonster.defense <= 0){
+            this.setState({isGameOver : true})
+            this.setState({ feedMessages: [...this.state.feedMessages,"GAME OVER !!!", `'${this.state.oponentMonster.name} won !!! Shame on ${this.state.userMonster.name}'`] })
 
+        }
+        else {
+            this.setState({userCanPlay : true})
+        }
+
+        
     }
 
 
 
     render() {
-        const { userMonster, oponentMonster, feedMessages, isBattleStarted } = this.state
+        const { userMonster, oponentMonster, feedMessages, isBattleStarted, userCanPlay } = this.state
+
+
 
         return (
             <React.Fragment>
@@ -134,13 +152,16 @@ class Battlezone extends Component {
                         </Col>
 
                     </Row>
-                    <Row className="justify-content-center">
+                    <Row className="justify-content-center" >
 
-                        {isBattleStarted ? <Row>
-                            <Button onClick={() => this.handleAttack(1)}>{userMonster.attk1_name}</Button>
-                            <Button onClick={() => this.handleAttack(2)}>onClick{userMonster.attk2_name}</Button>
-                            <Button onClick={() => this.handleAttack(3)}>{userMonster.attk3_name}</Button>
-                        </Row> :
+                        {isBattleStarted ? <Container><Row className="justify-content-around">
+                            
+                            <Button disabled={!userCanPlay} onClick={() => this.handleAttack(1)}>{userMonster.attk1_name}</Button>
+                            <Button disabled={!userCanPlay} onClick={() => this.handleAttack(2)}>{userMonster.attk2_name}</Button>
+                            <Button disabled={!userCanPlay} onClick={() => this.handleAttack(3)}>{userMonster.attk3_name}</Button>
+                            </Row>
+                            {this.state.isGameOver ? <Row className="justify-content-center"><Link to="/select"><Button >Play again</Button></Link></Row> : <p></p>}</Container>
+                         :
                             <Button color="danger" onClick={() => this.setState({ isBattleStarted: true })}>Start Battle !</Button>}
                     </Row>
 

@@ -15,11 +15,12 @@ const OponentMonster = ({name, attack, defense, picture}) => {
         <img width="100%" src={picture} alt={name} />
         <CardBody>
             <CardText>
-                Attack Power : {attack}
+                <h5>Health Points : {defense}</h5>
             </CardText>
             <CardText>
-                Defense Power : {defense}
+                Attack Power : {attack}
             </CardText>
+            
         </CardBody>
     </Card>
 
