@@ -3,5 +3,7 @@
     height: 10vh;
     color: rgb(214, 86, 0);
     font-size: 1.8rem;
-    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 }

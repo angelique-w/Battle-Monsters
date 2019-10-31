@@ -50,8 +50,9 @@ render() {
         return(
             <Container>
                 <Row>
-                    <Col xs="12">
+                    <Col xs="12 text-center">
                     Your userName {this.state.userName}
+                    <br></br>
                     <Button type="primary" onClick={()=> this.handleLogOut()}>
                         Log out
                     </Button>
