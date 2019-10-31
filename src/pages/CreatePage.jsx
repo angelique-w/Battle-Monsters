@@ -1,8 +1,10 @@
 import React from "react"
 
-export default function Create({location}){
-    const {id, name, attack, level} = location.state
+function Create({location}){
+    const {name, attack, defense} = location.state
     return (
         <div>{name}</div>
     )
 }
+
+export default Create;
