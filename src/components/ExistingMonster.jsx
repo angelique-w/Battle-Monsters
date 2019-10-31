@@ -9,7 +9,7 @@ const ExistingMonster = ({ name, attack, defense, picture, attk1_name, attk1_val
     return (
         <React.Fragment>
 
-            <Col xs={{size:6}}>
+            <Col sm={{size:12}} md={{size:6}}>
 <Link to="/battle" className ="link">
         <Card className="text-muted" onClick={ ()=> { 
 
@@ -22,7 +22,7 @@ const ExistingMonster = ({ name, attack, defense, picture, attk1_name, attk1_val
                 
                 </CardBody>
                 <img width="100%" src={picture ? picture : "https://i.pinimg.com/originals/f8/64/5b/f8645b8957654aed39cb675376cc1783.jpg"} alt="Card image cap" />
-                <CardBody>
+                <CardBody className="bottom-card">
                 <CardText className="description">{description}</CardText>
                 <CardText className="action">Attaque : {attack}</CardText>
                 <CardText className="action">Defense : {defense}</CardText>
