@@ -32,11 +32,11 @@ class ExistingMonsters extends Component{
         const {monsterList, error} = this.state
 
         return(
-            <div>
+            <>
             {monsterList.map(monster => {
                 return <ExistingMonster {...monster} />}
 )}
-            </div>
+            </>
 
     )
 }

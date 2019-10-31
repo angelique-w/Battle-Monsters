@@ -1,6 +1,6 @@
 import React from 'react';
-import {Row, Col} from "antd"
- 
+import { Container, Row, Col } from "reactstrap"
+
 import Header from '../components/Header';
 import NewMonster from '../components/NewMonster';
 import ExistingMonsters from '../components/ExistingMonsters';
@@ -9,14 +9,18 @@ function SelectPage() {
     return (
         <div>
             <Header />
-            <Row>
-                <Col xs={12} >
-                    <ExistingMonsters />
-                </Col >
-                <Col xs={12}>
-                <NewMonster />
-                </Col>
-            </Row>
+            <Container>
+                <Row>
+                    <Row className="col-8">    
+                        <ExistingMonsters />
+                    </Row>
+                    <Row className="col-4">
+                    <Col xs="12">
+                        <NewMonster />
+                    </Col>
+                    </Row>
+                </Row>
+            </Container>
         </div>
     )
 }
