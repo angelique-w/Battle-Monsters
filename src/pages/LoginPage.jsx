@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Container} from "reactstrap"
 
 
 import Header from "../components/Header"
@@ -15,9 +16,10 @@ class LoginPage extends Component {
     render() {
         return (
         <>
-            <Header />
-            <UserLogin />
-            
+            <Container>
+                <Header />
+                <UserLogin />
+            </Container>
         </>
         )
     

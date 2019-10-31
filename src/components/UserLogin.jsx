@@ -58,7 +58,7 @@ render() {
     else {
     return (
 
-        <Row>
+        <Row className="login">
             <Form layout="inline" onSubmit={this.handleSubmit}>
         <Input
             placeholder="Username"

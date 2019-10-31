@@ -6,6 +6,7 @@ import NewMonster from '../components/NewMonster';
 import ExistingMonsters from '../components/ExistingMonsters';
 import UsernameBanner from '../components/UsernameBanner';
 
+
 function SelectPage() {
     return (
         <div>
@@ -13,10 +14,10 @@ function SelectPage() {
             <UsernameBanner />
             <Container>
                 <Row>
-                    <Row className="col-8">    
+                    <Row className="col-10">    
                         <ExistingMonsters />
                     </Row>
-                    <Row className="col-4">
+                    <Row className="col-2">
                     <Col xs="12">
                         <NewMonster />
                     </Col>
