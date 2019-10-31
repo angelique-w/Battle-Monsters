@@ -11,3 +11,17 @@
 div.col-12.text-center{
     margin:15px;
 }
+
+div.login.row{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin:15px;
+}
+
+button.btn.btn-primary {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 10px;
+
+}  
