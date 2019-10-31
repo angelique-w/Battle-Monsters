@@ -60,3 +60,9 @@ div.bottom-card.card-body{
     visibility:visible;
 }
 
+div.align-self-center.col{
+    max-height: 500px;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+}
