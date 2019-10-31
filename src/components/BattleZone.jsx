@@ -152,16 +152,16 @@ class Battlezone extends Component {
                         </Col>
 
                     </Row>
-                    <Row className="justify-content-center" >
+                    <Row className="justify-content-around" >
 
-                        {isBattleStarted ? <Container><Row className="justify-content-around">
+                        {isBattleStarted ? <Container fluid className="justify-content-center" ><Row className="justify-content-around">
                             
-                            <Button disabled={!userCanPlay} onClick={() => this.handleAttack(1)}>{userMonster.attk1_name}</Button>
-                            <Button disabled={!userCanPlay} onClick={() => this.handleAttack(2)}>{userMonster.attk2_name}</Button>
-                            <Button disabled={!userCanPlay} onClick={() => this.handleAttack(3)}>{userMonster.attk3_name}</Button>
-                            </Row>
-                            {this.state.isGameOver ? <Row className="justify-content-center"><Link to="/select"><Button >Play again</Button></Link></Row> : <p></p>}</Container>
-                         :
+                            <Button color="warning" disabled={!userCanPlay} onClick={() => this.handleAttack(1)}>{userMonster.attk1_name}</Button>
+                            <Button color="warning" disabled={!userCanPlay} onClick={() => this.handleAttack(2)}>{userMonster.attk2_name}</Button>
+                            <Button color="warning" disabled={!userCanPlay} onClick={() => this.handleAttack(3)}>{userMonster.attk3_name}</Button>
+                            
+                            {this.state.isGameOver ? <Link to="/select"><Button color="danger">Play again</Button></Link> : <></>}</Row></Container>
+                        :
                             <Button color="danger" onClick={() => this.setState({ isBattleStarted: true })}>Start Battle !</Button>}
                     </Row>
 

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-// import { Row } from 'antd';
 
 import './header.css'
-import renderEmpty from 'antd/lib/config-provider/renderEmpty';
 
 
 class Header extends Component {
