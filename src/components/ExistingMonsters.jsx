@@ -12,6 +12,7 @@ class ExistingMonsters extends Component{
             }
         }
     componentDidMount(){
+
         const user = localStorage.getItem('username')
         apiCall.get(`/user/gogetthisone/${user}`)
         .then (res => 

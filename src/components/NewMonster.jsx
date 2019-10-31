@@ -22,7 +22,7 @@ class NewMonster extends React.Component {
 
     componentDidMount() {
         apiCall
-            .get('/gogetthat')
+            .get('/item/gogetthat')
             .then(res => {
                 const datas = res.data;
                 this.setState({ listMonsters: datas });
@@ -64,7 +64,7 @@ class NewMonster extends React.Component {
                         pathname: "/create",
                         state: { ...this.state.selectedMonster }
                     }}>
-                        <Button tag={Link} >Create New Monster</Button>
+                        <Button>Create New Monster</Button>
                     </Link>
                 </div>
             );
