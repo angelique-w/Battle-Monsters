@@ -9,31 +9,23 @@ const UserMonster = ({name, attack, defense, picture, energy, maxHP}) => {
         <>
         <Container>
         <Card>
-        <CardBody>
-            <CardTitle>{name}</CardTitle>
-        </CardBody>
-        <img width="100%" src={picture} alt={name} />
-        <CardBody>
-            <CardText>
-                Stamina : {energy}
-                <Progress value={energy}></Progress>
-            </CardText>
-            <CardText>
-                Health Points : {defense}
-                <Progress color={"success"} value={defense} max={maxHP}></Progress>
-            </CardText>
-            <CardText>
-                Attack Power : {attack}
-            </CardText>      
-        </CardBody>
-    </Card>
-
-
-
+            <CardTitle>
+                <h4>{name}</h4>
+            </CardTitle>
+            <CardText>Attack Power : {attack}</CardText>
+            <img width="100%" src={picture} alt={name} />
+            <CardBody>
+                <CardText>
+                    Stamina : {energy}
+                    <Progress value={energy}></Progress>
+                </CardText>
+                <CardText>
+                    Health Points : {defense}
+                    <Progress color={"success"} value={defense} max={maxHP}></Progress>
+                </CardText>
+            </CardBody>
+        </Card>
         </Container>
-
-
-        
         </>
     )
 

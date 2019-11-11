@@ -192,29 +192,26 @@ console.log(isNotResolved);
     render() {
         const { userMonster, oponentMonster, feedMessages, isBattleStarted, userCanPlay, userEnergy, oponentEnergy } = this.state
 
-        const disableBtn1 = (userEnergy < Number(userMonster.attk1_value))
-        const disableBtn2 = (userEnergy < Number(userMonster.attk2_value))
-        const disableBtn3 = (userEnergy < Number(userMonster.attk3_value))
+        const disableBtn1 = (userEnergy < Number(userMonster.attk1_value)) && userCanPlay
+        const disableBtn2 = (userEnergy < Number(userMonster.attk2_value)) && userCanPlay
+        const disableBtn3 = (userEnergy < Number(userMonster.attk3_value)) && userCanPlay
 
 
         return (
             <React.Fragment>
-
-                <Container>
+                <Col className="battlezone">
                     <Row>
-                        <Col>
+                        <Col xs={2} className="offset-1">
                             <UserMonster {...userMonster} energy={userEnergy} maxHP={this.state.maxUserHP} />
                         </Col>
-                        <Col className="align-self-center">
+                        <Col xs={6} className="align-self-center">
                             <BattleDisplay messages={feedMessages} />
                         </Col>
-                        <Col>
+                        <Col xs={2}>
                             <OponentMonster {...oponentMonster} energy={oponentEnergy} maxHP={this.state.maxOppHP}/>
                         </Col>
-
                     </Row>
                     <Row className="justify-content-around" >
-
                         {isBattleStarted ? <Container fluid className="justify-content-center" ><Row className="justify-content-around">
                             
                             <Button color="warning" disabled={disableBtn1} onClick={() => this.handleAttack(1)}>{userMonster.attk1_name} ({userMonster.attk1_value} dmg)</Button>
@@ -226,11 +223,7 @@ console.log(isNotResolved);
                         :
                             <Button color="danger" onClick={() => this.setState({ isBattleStarted: true })}>Start Battle !</Button>}
                     </Row>
-
-
-
-                </Container>
-
+                </Col>
             </React.Fragment>
         )
 

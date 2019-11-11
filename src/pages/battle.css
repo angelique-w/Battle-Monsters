@@ -1,0 +1,8 @@
+.battlezone{
+
+background: url("../img/battleMonstersBackground.jpg");
+background-position-y: bottom;
+background-size: cover;
+padding-top: 10px;
+padding-bottom: 50px;
+}
