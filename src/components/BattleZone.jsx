@@ -6,6 +6,7 @@ import apiCall from "./apiCall"
 import UserMonster from "../components/UserMonster"
 import OponentMonster from "../components/OponentMonster"
 import BattleDisplay from "../components/BattleDisplay"
+import "./battlezone.css"
 
 const sleep = (ms) => {
     // Temporise par le temps passé en argument
@@ -190,7 +191,7 @@ console.log(isNotResolved);
 
 
     render() {
-        const { userMonster, oponentMonster, feedMessages, isBattleStarted, userCanPlay, userEnergy, oponentEnergy } = this.state
+        const { userMonster, oponentMonster, feedMessages, isBattleStarted, userCanPlay, userEnergy, oponentEnergy, isGameOver } = this.state
 
         const disableBtn1 = (userEnergy < Number(userMonster.attk1_value)) && userCanPlay
         const disableBtn2 = (userEnergy < Number(userMonster.attk2_value)) && userCanPlay
@@ -201,13 +202,13 @@ console.log(isNotResolved);
             <React.Fragment>
                 <Col className="battlezone">
                     <Row>
-                        <Col xs={2} className="offset-1">
+                        <Col xs={6} xl={2} className="offset-lg-1">
                             <UserMonster {...userMonster} energy={userEnergy} maxHP={this.state.maxUserHP} />
                         </Col>
-                        <Col xs={6} className="align-self-center">
-                            <BattleDisplay messages={feedMessages} />
+                        <Col sm={12} xl={6} className="align-self-center order-last order-xl-2">
+                            <BattleDisplay messages={feedMessages} isGameOver={isGameOver}/>
                         </Col>
-                        <Col xs={2}>
+                        <Col xs={6} xl={2} className="align-self-center order-sm-1 order-xl-3">
                             <OponentMonster {...oponentMonster} energy={oponentEnergy} maxHP={this.state.maxOppHP}/>
                         </Col>
                     </Row>

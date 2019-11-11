@@ -56,9 +56,3 @@ button.btn.btn-primary, button.btn.btn-secondary {
     visibility:visible;
 }
 
-#battleZoneDisplay{
-    max-height: 500px;
-    overflow: scroll;
-    display: flex;
-    flex-direction: column-reverse;
-}
