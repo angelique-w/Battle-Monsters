@@ -1,15 +1,15 @@
 import React from "react"
-import { Container, Row } from "reactstrap"
+import { Container, Col, Row } from "reactstrap"
 
 const BattleDisplay = ({ messages }) => {
 
 
     return (
-        <Container>
-            <Row className="justify-content-center text-white" style={{overflowY : "scroll", maxHeight : "50vh"}}>
+        <Container style={{overflowY : "scroll", maxHeight : "50vh"}}>
+            <Row className="justify-content-center text-white align-content-end">
                 {messages.length !== 0 ? (messages.map(msg => {
-                    return <p>{msg}</p>
-                })) : "Ready for Battle"}
+                    return <Col  xs={6}>{msg}</Col>
+                })) : <Col xs={12} className="text-center">Ready for Battle</Col>}
             </Row>
         </Container>
     )
