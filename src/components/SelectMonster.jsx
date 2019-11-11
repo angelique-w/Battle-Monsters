@@ -5,16 +5,7 @@ function SelectMonster({ monsters, getMonster }) {
     const [monster, setMonster] = useState("Choose your monster to customize")
 
         return (
-        <>
-        {/* <Select style={{ width: 300 }} value={monster} onChange={e => getMonster(e)}>
-            {
-                monsters.map(monster => {
-                    return <Option value={monster}>{monster.name}</Option>
-                })
-            }
-
-        </Select> */}
-        
+        <>   
         <FormGroup>
         <Label for="selectMonster">Choose your monster to customize :</Label>
         <select value={monster} onChange={e => getMonster(e.target.value)}>
