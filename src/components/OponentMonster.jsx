@@ -1,7 +1,7 @@
 import React from "react"
-import {Container, Card, CardBody, CardTitle, CardText} from "reactstrap"
+import {Container, Card, CardBody, CardTitle, CardText, Progress} from "reactstrap"
 
-const OponentMonster = ({name, attack, defense, picture}) => {
+const OponentMonster = ({name, attack, defense, picture, energy, maxHP}) => {
 
 
     return(
@@ -15,7 +15,12 @@ const OponentMonster = ({name, attack, defense, picture}) => {
         <img width="100%" src={picture} alt={name} />
         <CardBody>
             <CardText>
-                <h5>Health Points : {defense}</h5>
+            Stamina : {energy}
+                <Progress value={energy}></Progress>
+            </CardText>
+            <CardText>
+            Health Points : {defense}
+                <Progress color={"success"} value={defense} max={maxHP}></Progress>
             </CardText>
             <CardText>
                 Attack Power : {attack}
@@ -23,20 +28,9 @@ const OponentMonster = ({name, attack, defense, picture}) => {
             
         </CardBody>
     </Card>
-
-
-
         </Container>
-
-
-        
         </>
-
     )
-
-
-
-
 }
 
 export default OponentMonster
