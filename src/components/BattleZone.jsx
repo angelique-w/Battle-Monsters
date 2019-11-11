@@ -6,6 +6,7 @@ import apiCall from "./apiCall"
 import UserMonster from "../components/UserMonster"
 import OponentMonster from "../components/OponentMonster"
 import BattleDisplay from "../components/BattleDisplay"
+import "./battlezone.css"
 
 const sleep = (ms) => {
     // Temporise par le temps passé en argument
@@ -190,47 +191,40 @@ console.log(isNotResolved);
 
 
     render() {
-        const { userMonster, oponentMonster, feedMessages, isBattleStarted, userCanPlay, userEnergy, oponentEnergy } = this.state
+        const { userMonster, oponentMonster, feedMessages, isBattleStarted, userCanPlay, userEnergy, oponentEnergy, isGameOver } = this.state
 
-        const disableBtn1 = (userEnergy < Number(userMonster.attk1_value))
-        const disableBtn2 = (userEnergy < Number(userMonster.attk2_value))
-        const disableBtn3 = (userEnergy < Number(userMonster.attk3_value))
+        const disableBtn1 = (userEnergy < Number(userMonster.attk1_value)) && userCanPlay
+        const disableBtn2 = (userEnergy < Number(userMonster.attk2_value)) && userCanPlay
+        const disableBtn3 = (userEnergy < Number(userMonster.attk3_value)) && userCanPlay
 
 
         return (
             <React.Fragment>
-
-                <Container>
+                <Col className="battlezone">
                     <Row>
-                        <Col>
+                        <Col xs={6} xl={2} className="offset-lg-1">
                             <UserMonster {...userMonster} energy={userEnergy} maxHP={this.state.maxUserHP} />
                         </Col>
-                        <Col className="align-self-center">
-                            <BattleDisplay messages={feedMessages} />
+                        <Col sm={12} xl={6} className="align-self-center order-last order-xl-2">
+                            <BattleDisplay messages={feedMessages} isGameOver={isGameOver}/>
                         </Col>
-                        <Col>
+                        <Col xs={6} xl={2} className="align-self-center order-sm-1 order-xl-3">
                             <OponentMonster {...oponentMonster} energy={oponentEnergy} maxHP={this.state.maxOppHP}/>
                         </Col>
-
                     </Row>
                     <Row className="justify-content-around" >
-
                         {isBattleStarted ? <Container fluid className="justify-content-center" ><Row className="justify-content-around">
                             
-                            <Button color="warning" disabled={disableBtn1} onClick={() => this.handleAttack(1)}>{userMonster.attk1_name} ({userMonster.attk1_value} dmg)</Button>
-                            <Button color="warning" disabled={disableBtn2} onClick={() => this.handleAttack(2)}>{userMonster.attk2_name} ({userMonster.attk2_value} dmg)</Button>
-                            <Button color="warning" disabled={disableBtn3} onClick={() => this.handleAttack(3)}>{userMonster.attk3_name} ({userMonster.attk3_value} dmg)</Button>
+                            <Button color="danger" disabled={disableBtn1} onClick={() => this.handleAttack(1)}>{userMonster.attk1_name} ({userMonster.attk1_value} dmg)</Button>
+                            <Button color="danger" disabled={disableBtn2} onClick={() => this.handleAttack(2)}>{userMonster.attk2_name} ({userMonster.attk2_value} dmg)</Button>
+                            <Button color="danger" disabled={disableBtn3} onClick={() => this.handleAttack(3)}>{userMonster.attk3_name} ({userMonster.attk3_value} dmg)</Button>
                             <Button color="success" onClick={() => this.handleAttack(0)}> Rest one turn (+20 Stamina)</Button>
 
                             {this.state.isGameOver ? <Link to="/select"><Button color="danger">Play again</Button></Link> : <></>}</Row></Container>
                         :
                             <Button color="danger" onClick={() => this.setState({ isBattleStarted: true })}>Start Battle !</Button>}
                     </Row>
-
-
-
-                </Container>
-
+                </Col>
             </React.Fragment>
         )
 
