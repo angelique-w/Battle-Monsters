@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import UsernameBanner from "../components/UsernameBanner";
 import apiCall from "../components/apiCall";
+import '../components/inputNumbers.css'
 
 class Create extends React.Component {
     constructor(props) {
@@ -95,7 +96,8 @@ class Create extends React.Component {
             attk2_name: this.state.attk2_name,
             attk2_value: this.state.attk2_value,
             attk3_name: this.state.attk3_name,
-            attk3_value: this.state.attk3_value
+            attk3_value: this.state.attk3_value,
+            user_id: 6
             }
         )
         apiCall({ method: "POST", url: '/UserMonster/addusermonster', data:{
@@ -109,7 +111,8 @@ class Create extends React.Component {
             attk2_name: this.state.attk2_name,
             attk2_value: this.state.attk2_value,
             attk3_name: this.state.attk3_name,
-            attk3_value: this.state.attk3_value
+            attk3_value: this.state.attk3_value,
+            user_id: 6
         }})
         .then(res => {
             console.log(res)
