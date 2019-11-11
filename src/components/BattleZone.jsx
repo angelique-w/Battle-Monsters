@@ -215,9 +215,9 @@ console.log(isNotResolved);
                     <Row className="justify-content-around" >
                         {isBattleStarted ? <Container fluid className="justify-content-center" ><Row className="justify-content-around">
                             
-                            <Button color="warning" disabled={disableBtn1} onClick={() => this.handleAttack(1)}>{userMonster.attk1_name} ({userMonster.attk1_value} dmg)</Button>
-                            <Button color="warning" disabled={disableBtn2} onClick={() => this.handleAttack(2)}>{userMonster.attk2_name} ({userMonster.attk2_value} dmg)</Button>
-                            <Button color="warning" disabled={disableBtn3} onClick={() => this.handleAttack(3)}>{userMonster.attk3_name} ({userMonster.attk3_value} dmg)</Button>
+                            <Button color="danger" disabled={disableBtn1} onClick={() => this.handleAttack(1)}>{userMonster.attk1_name} ({userMonster.attk1_value} dmg)</Button>
+                            <Button color="danger" disabled={disableBtn2} onClick={() => this.handleAttack(2)}>{userMonster.attk2_name} ({userMonster.attk2_value} dmg)</Button>
+                            <Button color="danger" disabled={disableBtn3} onClick={() => this.handleAttack(3)}>{userMonster.attk3_name} ({userMonster.attk3_value} dmg)</Button>
                             <Button color="success" onClick={() => this.handleAttack(0)}> Rest one turn (+20 Stamina)</Button>
 
                             {this.state.isGameOver ? <Link to="/select"><Button color="danger">Play again</Button></Link> : <></>}</Row></Container>
