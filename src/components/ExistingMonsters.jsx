@@ -19,7 +19,11 @@ class ExistingMonsters extends Component{
         .then (res => 
             {
             const list = res.data
+            console.log(list)
             this.setState({monsterList : list})
+            localStorage.setItem("user_id", list[0].user_id)
+            console.log("userid " + localStorage.getItem("user_id"));
+            
         })
         .catch(err => {
             this.setState({error : err})
