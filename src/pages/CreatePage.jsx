@@ -11,18 +11,19 @@ class Create extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
-            attack: "",
-            defense: "",
-            picture: "",
+            name: this.props.location.state.name,
+            attack: this.props.location.state.attack,
+            defense: Number(this.props.location.state.defense),
+            picture: this.props.location.state.picture,
             description: "",
-            attk1_name: "",
+            attk1_name: "attack 1",
             attk1_value: 0,
-            attk2_name: "",
+            attk2_name: "attack 2",
             attk2_value: 0,
-            attk3_name: "",
+            attk3_name: "attack 3",
             attk3_value: 0,
-            pointsRemaining: 0
+            pointsRemaining: 0,
+            user_id : localStorage.getItem("user_id")
         }
 
         this.handleName = this.handleName.bind(this);
@@ -97,14 +98,15 @@ class Create extends React.Component {
             attk2_value: this.state.attk2_value,
             attk3_name: this.state.attk3_name,
             attk3_value: this.state.attk3_value,
-            user_id: 6
+            user_id: this.state.user_id
             }
         )
         apiCall({ method: "POST", url: '/UserMonster/addusermonster', data:{
             name: this.state.name,
+            level: Math.floor(Math.random()*10),
             attack: this.state.attack,
             defense: this.state.defense,
-            picture: "",
+            picture : this.state.picture,
             description: this.state.description,
             attk1_name: this.state.attk1_name,
             attk1_value: this.state.attk1_value,
@@ -112,8 +114,14 @@ class Create extends React.Component {
             attk2_value: this.state.attk2_value,
             attk3_name: this.state.attk3_name,
             attk3_value: this.state.attk3_value,
-            user_id: 6
-        }})
+            user_id: this.state.user_id,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        },
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
         .then(res => {
             console.log(res)
         })
@@ -142,7 +150,7 @@ render() {
             <Header />
             <UsernameBanner />
             <div>
-                <Form>
+                <Form className="text-white">
                     <h1>My monster</h1>
 
                     <FormGroup>
