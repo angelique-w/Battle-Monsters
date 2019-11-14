@@ -23,7 +23,8 @@ class Create extends React.Component {
             attk3_name: "attack 3",
             attk3_value: 0,
             pointsRemaining: 0,
-            user_id : localStorage.getItem("user_id")
+            user_id : localStorage.getItem("user_id"),
+            newPicture: ""
         }
 
         this.handleName = this.handleName.bind(this);
@@ -85,25 +86,25 @@ class Create extends React.Component {
     }
 
     postNewMonster() {
-        console.log(
-            {
-            name: this.state.name,
-            attack: this.state.attack,
-            defense: this.state.defense,
-            picture: "",
-            description: this.state.description,
-            attk1_name: this.state.attk1_name,
-            attk1_value: this.state.attk1_value,
-            attk2_name: this.state.attk2_name,
-            attk2_value: this.state.attk2_value,
-            attk3_name: this.state.attk3_name,
-            attk3_value: this.state.attk3_value,
-            user_id: this.state.user_id
-            }
-        )
+        // console.log(
+        //     {
+        //     name: this.state.name,
+        //     attack: this.state.attack,
+        //     defense: this.state.defense,
+        //     picture: "",
+        //     description: this.state.description,
+        //     attk1_name: this.state.attk1_name,
+        //     attk1_value: this.state.attk1_value,
+        //     attk2_name: this.state.attk2_name,
+        //     attk2_value: this.state.attk2_value,
+        //     attk3_name: this.state.attk3_name,
+        //     attk3_value: this.state.attk3_value,
+        //     user_id: this.state.user_id
+        //     }
+        // )
         apiCall({ method: "POST", url: '/UserMonster/addusermonster', data:{
             name: this.state.name,
-            level: Math.floor(Math.random()*10),
+            level: 1,
             attack: this.state.attack,
             defense: this.state.defense,
             picture : this.state.picture,
@@ -143,7 +144,7 @@ componentDidMount() {
 
 render() {
 
-    const { name, attack, defense } = this.props.location.state;
+    const { name, attack, defense, picture, pointsRemaining, attk1_value, attk2_value, attk3_value, newPicture } = this.state;
 
     return (
         <div>
@@ -158,27 +159,33 @@ render() {
                         <Input type="text" name="name" id="name" defaultValue={name} onChange={this.handleName} />
                     </FormGroup>
                     <FormGroup>
+                        <p>Your acutal image :</p>
+                        <img src={picture} alt={name}/>
+                        <Label htmlFor="image">Change your image :</Label>
+                        <Input type="text" id="image" name="image" value={newPicture} placeholder="URL" onChange={this.handlePicture}/>
+                    </FormGroup>
+                    <FormGroup>
                         <Label for="description">Enter the description :</Label>
                         <Input type="textarea" name="description" id="description" onChange={this.handleDescription} />
                     </FormGroup>
                     <p>HP : {defense}</p>
-                    <p>Attack points remaining : {this.state.pointsRemaining}</p>
+                    <p>Attack points remaining : {pointsRemaining}</p>
 
                     <p>Customize 3 attacks :</p>
                     <FormGroup>
                         <Label for="attack1">Attack 1 :</Label>
                         <Input type="text" name="attk1_name" id="attk1_name" placeholder="name attack" onChange={this.handleNameAttack1} />
-                        <Input type="number" name="attk1_value" id="attk1_value" min="0" max={this.state.attack - this.state.attk2_value - this.state.attk3_value} placeholder="HP attack" onBlur={this.handleAttack1} />
+                        <Input type="number" name="attk1_value" id="attk1_value" min="0" max={attack - attk2_value - attk3_value} placeholder="HP attack" onBlur={this.handleAttack1} />
                     </FormGroup>
                     <FormGroup>
                         <Label for="attack2">Attack 2 :</Label>
                         <Input type="text" name="attk2_name" id="attk2_name" placeholder="name attack" onChange={this.handleNameAttack2} />
-                        <Input type="number" name="attk2_value" id="attk2_value" min="0" max={this.state.attack - this.state.attk1_value - this.state.attk3_value} placeholder="HP attack" onBlur={this.handleAttack2} />
+                        <Input type="number" name="attk2_value" id="attk2_value" min="0" max={attack - attk1_value - attk3_value} placeholder="HP attack" onBlur={this.handleAttack2} />
                     </FormGroup>
                     <FormGroup>
                         <Label for="attack1">Attack 3 :</Label>
                         <Input type="text" name="attk3_name" id="attk3_name" placeholder="name attack" onChange={this.handleNameAttack3} />
-                        <Input type="number" name="attk3_value" id="attk3_value" min="0" max={this.state.attack - this.state.attk1_value - this.state.attk2_value} placeholder="HP attack" onBlur={this.handleAttack3} />
+                        <Input type="number" name="attk3_value" id="attk3_value" min="0" max={attack - attk1_value - attk2_value} placeholder="HP attack" onBlur={this.handleAttack3} />
                     </FormGroup>
                     <Link to="/select">
                         <Button onClick={this.postNewMonster}>Create</Button>
