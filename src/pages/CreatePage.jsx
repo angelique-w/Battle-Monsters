@@ -11,16 +11,16 @@ class Create extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
-            attack: "",
-            defense: "",
-            picture: "",
+            name: this.props.location.state.name,
+            attack: this.props.location.state.attack,
+            defense: Number(this.props.location.state.defense),
+            picture: this.props.location.state.picture,
             description: "",
-            attk1_name: "",
+            attk1_name: "attack 1",
             attk1_value: 0,
-            attk2_name: "",
+            attk2_name: "attack 2",
             attk2_value: 0,
-            attk3_name: "",
+            attk3_name: "attack 3",
             attk3_value: 0,
             pointsRemaining: 0,
             user_id : localStorage.getItem("user_id")

@@ -9,7 +9,8 @@ class ExistingMonsters extends Component{
             super(props);
             this.state = {
                 monsterList : [],
-                error : ""
+                error : "",
+                userHasMonster : false
             }
         }
     componentDidMount(){
@@ -19,8 +20,12 @@ class ExistingMonsters extends Component{
         .then (res => 
             {
             const list = res.data
+            const hasMonsters = (list[0].id !== null)
+            console.log("hasMonsters " +  hasMonsters);
             console.log(list)
-            this.setState({monsterList : list})
+            this.setState({monsterList : list,
+                            userHasMonster : hasMonsters})
+            
             localStorage.setItem("user_id", list[0].user_id)
             console.log("userid " + localStorage.getItem("user_id"));
             
@@ -36,16 +41,31 @@ class ExistingMonsters extends Component{
     render() 
     {
 
-        const {monsterList, error} = this.state
+        const {monsterList, error, userHasMonster} = this.state
+        console.log("monsterlist 0 name " + monsterList[0]);
+        console.log("render hasmonster" + {userHasMonster});
+        
 
-        return(
-            <Row>
+if (userHasMonster){
+
+    return(
+        <Row>
             {monsterList.map(monster => {
                 return <ExistingMonster {...monster} />}
 )}
             </Row>
-
     )
+
+}
+else {
+        return(
+            <Row className="text-center text-white col xs-12">
+
+            <h4 className="text-center text-white col xs-12">You don't have any monster yet, please create one</h4>
+            
+            </Row>
+    )
+    }
 }
 }
 
