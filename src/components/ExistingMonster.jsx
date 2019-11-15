@@ -20,7 +20,7 @@ const ExistingMonster = ({ name, attack, defense, picture, attk1_name, attk1_val
                     <CardTitle className="name" >{name}</CardTitle>
                 </CardBody>
                 <Row className="justify-content-center">
-                <img width="60%" src={picture ? picture : "https://i.pinimg.com/originals/f8/64/5b/f8645b8957654aed39cb675376cc1783.jpg"} alt="Card image cap" />
+                <img width="60%" src={picture ? picture : "https://i.pinimg.com/originals/f8/64/5b/f8645b8957654aed39cb675376cc1783.jpg"} alt={name} />
                 </Row>
                 <CardBody className="">
                     <CardText className="description">{description}</CardText>

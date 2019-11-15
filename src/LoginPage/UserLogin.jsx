@@ -1,6 +1,8 @@
 import React, {Component} from "react"
-import {Row, Form, Input, Button} from "reactstrap"
-import {Redirect, useHistory} from "react-router-dom"
+import {Row, Form, Input, Button, Col} from "reactstrap"
+import {Redirect} from "react-router-dom"
+
+import apiCall from "../components/apiCall"
 
 
 class UserLogin extends Component {
@@ -9,9 +11,8 @@ class UserLogin extends Component {
         this.state ={
             userName : "",
             isLogged : false,
-            usernameError : false,
             userId : "",
-            isUserExisting : false,
+            isUserExisting : true,
             
         }
         this.handleChange = this.handleChange.bind(this)
@@ -21,14 +22,33 @@ class UserLogin extends Component {
 }
 componentDidMount(){
     const username = localStorage.getItem('username')
-    username ? this.setState({isLogged : true}) : this.setState({isLogged : false})
     this.setState({userName : username })
 
 }
 
-handleSubmit(){
-    localStorage.setItem("username",this.state.userName)
-    this.setState({})
+handleSubmit(event){
+    event.preventDefault()
+    const userName = this.state.userName
+    apiCall.get(`/user/gogetuser/${this.state.userName}`)
+    .then(res => {
+        const id=res.data[0].id;
+        if (id) {
+            localStorage.setItem("userId", id);
+            localStorage.setItem("username", userName)
+            this.setState({isUserExisting : true})
+            this.setState({userId : id})
+            this.setState({isLogged : true})
+            console.log(this.state.isUserExisting, id);
+        }
+        else{
+            localStorage.clear()
+            console.log("no account")
+            this.setState({isUserExisting : false})
+        }
+
+
+        
+        })
 
 }
 
@@ -52,37 +72,43 @@ render() {
     if (this.state.isLogged) {
 
         return(
-            <Redirect to="/select" />
-
+        <Redirect to="/select" />
         )
-
-
     }
-    else {
+    else{
+
     return (
-
+        <>
         <Row className="login">
-            <Form layout="inline" onSubmit={this.handleSubmit}>
-        <Input
-            placeholder="Username"
-            value={this.state.userName}
-            onChange={this.handleChange}
-            />
-        <Button color="primary" htmlType="submit">
-            Log in
-        </Button>
-        </Form>
+            {this.state.isUserExisting ? <></> : 
+                    <Row className="justify-content-center text-danger">
+                        <Col xs={12}>
+                    <h5>This username doesn't exists, try again if you think you mistyped it or sign up for an account</h5>
+                        </Col>
+                    </Row>}
+            <Form  onSubmit={this.handleSubmit}>
+                
+                    <Col xs={12}>
+                <Input
+                    placeholder="Username"
+                    value={this.state.userName}
+                    onChange={this.handleChange}
+                    />
+                <Button color="primary" htmlType="submit">
+                    Log in
+                </Button>
+                </Col>
+            </Form>
         </Row>
-
-            
+        </>    
 
         )
     }
         
-        }}
+        }
 
 
-
+    }
 
 
 

@@ -6,12 +6,19 @@ function NewUser () {
 
 const [userName, setUserName] = useState("")
 
-const handleChange = () => {
-
+const handleChange = (event) => {
+    let inputText = event.target.value;
+    setUserName(inputText)
 
 }
 
-const handleSubmit = () =>{
+const handleSubmit = e =>{
+    e.preventDefault()
+    if (userName ===""){
+        alert("no username")
+    console.log(userName)  
+    } 
+    
 
 }
 
