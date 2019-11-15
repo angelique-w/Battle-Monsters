@@ -1,15 +1,18 @@
 import React, {Component} from "react"
 import {Row, Form, Input, Button} from "reactstrap"
-import {Redirect} from "react-router-dom"
+import {Redirect, useHistory} from "react-router-dom"
 
 
-class UsernameBanner extends Component {
+class UserLogin extends Component {
     constructor(props){
         super(props);
         this.state ={
             userName : "",
             isLogged : false,
-            usernameError : false
+            usernameError : false,
+            userId : "",
+            isUserExisting : false,
+            
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -84,4 +87,4 @@ render() {
 
 
 
-export default UsernameBanner
+export default UserLogin

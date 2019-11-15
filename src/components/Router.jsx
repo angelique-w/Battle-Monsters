@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import LoginPage from "../pages/LoginPage"
+import LoginPage from "../LoginPage/LoginPage"
 import SelectPage from "../pages/SelectPage"
 import CreatePage from "../pages/CreatePage"
 import Battle from "../pages/Battle"
