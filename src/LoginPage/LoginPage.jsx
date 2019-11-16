@@ -4,6 +4,7 @@ import {Container} from "reactstrap"
 
 import Header from "../components/Header"
 import LoginSelect from "./LoginSelect"
+import LoginCarousel from "./LoginCarousel";
 
 
 class LoginPage extends Component {
@@ -19,6 +20,7 @@ class LoginPage extends Component {
             <>
                 <Header />
                 <LoginSelect />
+                <LoginCarousel />
             </>
         </>
         )

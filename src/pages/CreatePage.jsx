@@ -23,7 +23,7 @@ class Create extends React.Component {
             attk3_name: "attack 3",
             attk3_value: 0,
             pointsRemaining: 0,
-            user_id : localStorage.getItem("user_id")
+            user_id : localStorage.getItem("userId")
         }
 
         this.handleName = this.handleName.bind(this);

@@ -12,11 +12,15 @@ function SelectPage() {
         <div>
             <Header />
             <UsernameBanner />
+                
             <Row>
-                <Col xs={12} lg={10}>    
+                <Col xs={12} xl={10} lg={12} className="text-center text-warning offset-1 offset-xl-1">
+                <h3>Select a monster to figth with or create one</h3>
+                </Col>
+                <Col xs={12} lg={10} xl={10} className="offset-lg-1 offset-xl-0">    
                     <ExistingMonsters />
                 </Col>
-                <Col xs={12} lg={2}>
+                <Col xs={12} lg={12} xl={2} >
                     <NewMonster />
                 </Col>
             </Row>
