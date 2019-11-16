@@ -2,8 +2,8 @@ import React from 'react';
 import {Row, Col } from "reactstrap"
 
 import Header from '../components/Header';
-import NewMonster from '../components/NewMonster';
-import ExistingMonsters from '../components/ExistingMonsters';
+import NewMonster from './NewMonster';
+import ExistingMonsters from './ExistingMonsters';
 import UsernameBanner from '../components/UsernameBanner';
 
 
