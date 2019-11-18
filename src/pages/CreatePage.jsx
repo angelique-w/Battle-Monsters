@@ -7,6 +7,7 @@ import UsernameBanner from "../components/UsernameBanner";
 import apiCall from "../components/apiCall";
 import '../components/inputNumbers.css';
 import './createPage.css';
+import axios from "axios";
 
 class Create extends React.Component {
     constructor(props) {
@@ -29,8 +30,10 @@ class Create extends React.Component {
             user_id : localStorage.getItem("user_id")
         }
 
+        this.imageRef = React.createRef();
         this.handleName = this.handleName.bind(this);
         this.handlePicture = this.handlePicture.bind(this);
+        this.handlePictureURL = this.handlePictureURL.bind(this);
         this.resetImage = this.resetImage.bind(this);
         this.handleDescription = this.handleDescription.bind(this);
         this.handleAttack1 = this.handleAttack1.bind(this);
@@ -48,14 +51,35 @@ class Create extends React.Component {
         this.setState({ name: value })
     }
 
-    handlePicture(event) {
+    handlePictureURL(event) {
         const { value } = event.target;
         this.setState({ newPicture: value, picture: value });
     }
 
+    handlePicture() {
+        if (this.imageRef) {
+            axios
+                .post('https://api.imgur.com/3/image', this.imageRef.current.files, {
+                    headers: {
+                        Authorization: 'Client-ID e9699dd93be01f6'
+                      }
+                })
+                .then(resFromImgur => {
+                    const link = resFromImgur.data.data.link;
+                    this.setState({ picture: link });
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+        } else {
+            const newPictureURL = this.state.newPicture;
+            this.setState({picture: newPictureURL})
+        }
+    }
+
     resetImage() {
         const originalPicture = this.state.originalPicture;
-        this.setState({ picture: originalPicture });
+        this.setState({ picture: originalPicture, newPicture: "" });
     }
 
     handleDescription(event) {
@@ -100,22 +124,6 @@ class Create extends React.Component {
     }
 
     postNewMonster() {
-        // console.log(
-        //     {
-        //     name: this.state.name,
-        //     attack: this.state.attack,
-        //     defense: this.state.defense,
-        //     picture: "",
-        //     description: this.state.description,
-        //     attk1_name: this.state.attk1_name,
-        //     attk1_value: this.state.attk1_value,
-        //     attk2_name: this.state.attk2_name,
-        //     attk2_value: this.state.attk2_value,
-        //     attk3_name: this.state.attk3_name,
-        //     attk3_value: this.state.attk3_value,
-        //     user_id: this.state.user_id
-        //     }
-        // )
         apiCall({ method: "POST", url: '/UserMonster/addusermonster', data:{
             name: this.state.name,
             level: 1,
@@ -175,9 +183,15 @@ render() {
                         <p>Your acutal image :</p>
                         <img className="d-block m-auto size-img" src={picture} alt={name}/>
                         <br/>
-                        <Label htmlFor="image">Change your image :</Label>
-                        <Input type="text" id="image" name="image" value={newPicture} placeholder="URL" onChange={this.handlePicture}/>
-                        <Button onClick={this.resetImage}>Reset image</Button>
+                        <p>Change your image :</p>
+                        <Label htmlFor="image">Upload an image from your files :</Label>
+                        <Input  type="file" id="image" name="image" ref={this.imageRef}></Input>
+                        <Label htmlFor="image">Or with an URL :</Label>
+                        <Input type="text" id="image" name="image" value={newPicture} placeholder="URL" onChange={this.handlePictureURL}/>
+                        <div className="d-flex mt-2 mb-4">
+                            <Button onClick={this.resetImage}>Reset image</Button>
+                            <Button onClick={this.handlePicture}>Validate</Button>
+                        </div>
                     </FormGroup>
                     <FormGroup>
                         <Label for="description">Enter the description :</Label>
@@ -202,7 +216,7 @@ render() {
                         <Input type="text" name="attk3_name" id="attk3_name" placeholder="name attack" onChange={this.handleNameAttack3} />
                         <Input type="number" name="attk3_value" id="attk3_value" min="0" max={attack - attk1_value - attk2_value} placeholder="HP attack" onBlur={this.handleAttack3} />
                     </FormGroup>
-                    <div className="d-flex justify-content-around">
+                    <div className="d-flex justify-content-around m-3">
                         <Link to="/select">
                             <Button>Cancel</Button>
                         </Link>
