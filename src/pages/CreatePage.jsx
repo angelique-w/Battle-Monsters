@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import UsernameBanner from "../components/UsernameBanner";
 import apiCall from "../components/apiCall";
-import '../components/inputNumbers.css'
+import '../components/inputNumbers.css';
+import './createPage.css';
 
 class Create extends React.Component {
     constructor(props) {
@@ -14,8 +15,10 @@ class Create extends React.Component {
             name: this.props.location.state.name,
             attack: this.props.location.state.attack,
             defense: Number(this.props.location.state.defense),
+            originalPicture: this.props.location.state.picture,
             picture: this.props.location.state.picture,
-            description: "",
+            newPicture: "",
+            description: this.props.location.state.description,
             attk1_name: "attack 1",
             attk1_value: 0,
             attk2_name: "attack 2",
@@ -23,11 +26,12 @@ class Create extends React.Component {
             attk3_name: "attack 3",
             attk3_value: 0,
             pointsRemaining: 0,
-            user_id : localStorage.getItem("user_id"),
-            newPicture: ""
+            user_id : localStorage.getItem("user_id")
         }
 
         this.handleName = this.handleName.bind(this);
+        this.handlePicture = this.handlePicture.bind(this);
+        this.resetImage = this.resetImage.bind(this);
         this.handleDescription = this.handleDescription.bind(this);
         this.handleAttack1 = this.handleAttack1.bind(this);
         this.handleAttack2 = this.handleAttack2.bind(this);
@@ -42,6 +46,16 @@ class Create extends React.Component {
     handleName(event) {
         const { value } = event.target;
         this.setState({ name: value })
+    }
+
+    handlePicture(event) {
+        const { value } = event.target;
+        this.setState({ newPicture: value, picture: value });
+    }
+
+    resetImage() {
+        const originalPicture = this.state.originalPicture;
+        this.setState({ picture: originalPicture });
     }
 
     handleDescription(event) {
@@ -150,28 +164,29 @@ render() {
         <div>
             <Header />
             <UsernameBanner />
-            <div>
-                <Form className="text-white">
-                    <h1>My monster</h1>
-
+            <div className="">
+                <Form className="d-flex flex-column w-container text-white m-auto border border-white rounded p-3">
+                    <h1 className="align-self-center">My monster</h1>
                     <FormGroup>
                         <Label for="name">Choose a name :</Label>
-                        <Input type="text" name="name" id="name" defaultValue={name} onChange={this.handleName} />
+                        <Input type="text" name="name" id="name" placeholder={name} onChange={this.handleName} />
                     </FormGroup>
                     <FormGroup>
                         <p>Your acutal image :</p>
-                        <img src={picture} alt={name}/>
+                        <img className="d-block m-auto size-img" src={picture} alt={name}/>
+                        <br/>
                         <Label htmlFor="image">Change your image :</Label>
                         <Input type="text" id="image" name="image" value={newPicture} placeholder="URL" onChange={this.handlePicture}/>
+                        <Button onClick={this.resetImage}>Reset image</Button>
                     </FormGroup>
                     <FormGroup>
                         <Label for="description">Enter the description :</Label>
                         <Input type="textarea" name="description" id="description" onChange={this.handleDescription} />
                     </FormGroup>
-                    <p>HP : {defense}</p>
-                    <p>Attack points remaining : {pointsRemaining}</p>
+                    <p className="text-center font-weight-bold lead">HP : {defense}</p>
+                    <p className="text-center font-weight-bold lead">Attack points remaining : {pointsRemaining}</p>
 
-                    <p>Customize 3 attacks :</p>
+                    <p className="text-center font-weight-bold lead">Customize 3 attacks :</p>
                     <FormGroup>
                         <Label for="attack1">Attack 1 :</Label>
                         <Input type="text" name="attk1_name" id="attk1_name" placeholder="name attack" onChange={this.handleNameAttack1} />
@@ -187,9 +202,15 @@ render() {
                         <Input type="text" name="attk3_name" id="attk3_name" placeholder="name attack" onChange={this.handleNameAttack3} />
                         <Input type="number" name="attk3_value" id="attk3_value" min="0" max={attack - attk1_value - attk2_value} placeholder="HP attack" onBlur={this.handleAttack3} />
                     </FormGroup>
-                    <Link to="/select">
-                        <Button onClick={this.postNewMonster}>Create</Button>
-                    </Link>
+                    <div className="d-flex justify-content-around">
+                        <Link to="/select">
+                            <Button>Cancel</Button>
+                        </Link>
+                        <Link to="/select">
+                            <Button onClick={this.postNewMonster}>Create</Button>
+                        </Link>
+                    </div>
+                    
                 </Form>
             </div>
         </div>
