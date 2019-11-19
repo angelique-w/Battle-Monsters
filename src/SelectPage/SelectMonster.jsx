@@ -8,7 +8,7 @@ function SelectMonster({ monsters, getMonster }) {
         <>   
         <FormGroup className="row justify-content-center">
         <Label className="text-white" for="selectMonster">Choose your monster to customize :</Label>
-        <select className="row justify-content-center" value={monster} onChange={e => getMonster(e.target.value)}>
+        <select className="row justify-content-center" value={monster.name} onChange={e => getMonster(e.target.value)}>
           {
               monsters.map(monster => {
                   return <option value={monster.id}>{monster.name}</option>

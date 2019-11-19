@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import {Row} from "reactstrap"
 
-import apiCall from "./apiCall"
+import apiCall from "../components/apiCall"
 import ExistingMonster from "./ExistingMonster";
 
 class ExistingMonsters extends Component{
@@ -23,11 +23,8 @@ class ExistingMonsters extends Component{
             const hasMonsters = (list[0].id !== null)
             console.log("hasMonsters " +  hasMonsters);
             console.log(list)
-            this.setState({monsterList : list,
+            this.setState({ monsterList : list,
                             userHasMonster : hasMonsters})
-            
-            localStorage.setItem("user_id", list[0].user_id)
-            console.log("userid " + localStorage.getItem("user_id"));
             
         })
         .catch(err => {
@@ -49,11 +46,13 @@ class ExistingMonsters extends Component{
 if (userHasMonster){
 
     return(
-        <Row>
+        <Row className="border border-warning p-2 m-1 rounded">
+            <Row className="justify-content-center w-100"><h2 className="w-100 text-center text-warning">My monsters</h2></Row>
+            <Row>
             {monsterList.map(monster => {
                 return <ExistingMonster {...monster} />}
 )}
-            </Row>
+            </Row></Row>
     )
 
 }
