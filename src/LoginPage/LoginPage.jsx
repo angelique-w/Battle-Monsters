@@ -17,11 +17,9 @@ class LoginPage extends Component {
     render() {
         return (
         <>
-            <>
                 <Header />
                 <LoginSelect />
                 <LoginCarousel />
-            </>
         </>
         )
     

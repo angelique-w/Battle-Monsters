@@ -95,7 +95,7 @@ render() {
                     onChange={this.handleChange}
                     />
                 <Button color="primary" htmlType="submit">
-                    Log in
+                    Sign in
                 </Button>
                 </Col>
             </Form>
