@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Col, Row } from 'reactstrap';
 import { Link } from "react-router-dom";
 
-import apiCall from './apiCall';
+import apiCall from '../components/apiCall';
 import CardNewMonster from './CardNewMonster';
 import SelectMonster from './SelectMonster';
 
@@ -57,7 +57,7 @@ class NewMonster extends React.Component {
             console.log(this.state.selectIsClosed)
             return (
                 <Col xs={12} className="justify-content-center">
-                    <Button onClick={this.handleSelectIsClosed}>New Monster</Button>
+                    <Button  onClick={this.handleSelectIsClosed}>New Monster</Button>
                     <SelectMonster monsters={this.state.listMonsters} getMonster={this.getMonster} />
                     <Row className="justify-content-center">
                         <CardNewMonster  {...this.state.selectedMonster} />
