@@ -43,28 +43,27 @@ class NewMonster extends React.Component {
 
 
     render() {
-        const { listMonsters } = this.state
-        const { selectIsClosed } = this.state
+        const { listMonsters, selectIsClosed, selectedMonster } = this.state
 
         if (selectIsClosed) {
-            console.log(this.state.selectIsClosed)
+            console.log(selectIsClosed)
             return (
                 <Col xs={12}>
                     <Button className="fixed" onClick={this.handleSelectIsClosed}>New Monster</Button>
                 </Col>
             )
         } else {
-            console.log(this.state.selectIsClosed)
+            console.log(selectIsClosed)
             return (
                 <Col xs={12} className="justify-content-center">
                     <Button  onClick={this.handleSelectIsClosed}>New Monster</Button>
-                    <SelectMonster monsters={this.state.listMonsters} getMonster={this.getMonster} />
+                    <SelectMonster monsters={listMonsters} getMonster={this.getMonster} />
                     <Row className="justify-content-center">
-                        <CardNewMonster  {...this.state.selectedMonster} />
+                        <CardNewMonster  {...selectedMonster} />
                     </Row>
                     <Link to={{
                         pathname: "/create",
-                        state: { ...this.state.selectedMonster }
+                        state: { ...selectedMonster }
                     }}>
                         <Button>Create New Monster</Button>
                     </Link>
