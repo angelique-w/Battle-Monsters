@@ -20,13 +20,13 @@ const ExistingMonster = ({ name, attack, defense, picture, attk1_name, attk1_val
                     <CardTitle className="name" >{name}</CardTitle>
                 </CardBody>
                 <Row>
-                    <Col xs={6} md={6} lg={6} xl={8} className="offset-xl-2">
+                    <Col xs={6} md={6} lg={6} xl={6} className="">
                         <img width="100%" src={picture ? picture : "https://i.pinimg.com/originals/f8/64/5b/f8645b8957654aed39cb675376cc1783.jpg"} alt={name} />
                     </Col>
                     <Col xs={12} xl={12} md={12} className="order-last order-xl-first p-2" >
-                        <CardText className="description">{description}</CardText>
+                        <CardText className="description p-1">{description}</CardText>
                     </Col>
-                    <Col xs={6} xl={12} lg={6}>
+                    <Col xs={6} xl={6} lg={6}>
                         <CardText className="action">Attack Power : {attack} <br></br>Health Points : {defense}</CardText>
                     
                         <CardText className="attak">First attack : {attk1_name} {attk1_value} dmg </CardText>

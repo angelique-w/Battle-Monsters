@@ -25,7 +25,8 @@ class NewMonster extends React.Component {
             .get('/item/gogetthat')
             .then(res => {
                 const datas = res.data;
-                this.setState({ listMonsters: datas });
+                this.setState({ listMonsters: datas })
+                this.setState({selectedMonster : datas[0]});
             })
             .catch(err => console.log(err));
     };
@@ -48,7 +49,7 @@ class NewMonster extends React.Component {
         if (selectIsClosed) {
             console.log(selectIsClosed)
             return (
-                <Col xs={12}>
+                <Col xs={12} >
                     <Button className="fixed" onClick={this.handleSelectIsClosed}>New Monster</Button>
                 </Col>
             )

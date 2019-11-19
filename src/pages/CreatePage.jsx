@@ -62,7 +62,8 @@ class Create extends React.Component {
                 .post('https://api.imgur.com/3/image', this.imageRef.current.files, {
                     headers: {
                         Authorization: 'Client-ID e9699dd93be01f6'
-                    })
+                      }
+                })
                 .then(resFromImgur => {
                     const link = resFromImgur.data.data.link;
                     this.setState({ picture: link });
