@@ -43,7 +43,6 @@ class Create extends React.Component {
         this.handleNameAttack2 = this.handleNameAttack2.bind(this);
         this.handleNameAttack3 = this.handleNameAttack3.bind(this);
         this.postNewMonster = this.postNewMonster.bind(this);
-        this.updatePointsRemaining = this.updatePointsRemaining.bind(this)
     }
 
     handleName(event) {
@@ -62,7 +61,7 @@ class Create extends React.Component {
                 .post('https://api.imgur.com/3/image', this.imageRef.current.files, {
                     headers: {
                         Authorization: 'Client-ID e9699dd93be01f6'
-                      }
+                    }
                 })
                 .then(resFromImgur => {
                     const link = resFromImgur.data.data.link;
@@ -151,15 +150,8 @@ class Create extends React.Component {
         .catch (err => console.log(err));
     }
 
-updatePointsRemaining() {
-    // this.setState({pointsRemaining: this.state.attack})
-}
 
 componentDidMount() {
-    // const {picture} = this.props.location.state;
-    // const imgProfilMonster = picture;
-    // this.setState({picture: imgProfilMonster});
-    // console.log(this.state.picture)
     this.setState({ attack: parseInt(this.props.location.state.attack, 10), pointsRemaining: parseInt(this.props.location.state.attack, 10) })
 
 }
