@@ -27,7 +27,7 @@ class Create extends React.Component {
             attk3_name: "attack 3",
             attk3_value: 0,
             pointsRemaining: 0,
-            user_id : localStorage.getItem("user_id")
+            user_id : localStorage.getItem("userId")
         }
 
         this.imageRef = React.createRef();
@@ -62,8 +62,7 @@ class Create extends React.Component {
                 .post('https://api.imgur.com/3/image', this.imageRef.current.files, {
                     headers: {
                         Authorization: 'Client-ID e9699dd93be01f6'
-                      }
-                })
+                    })
                 .then(resFromImgur => {
                     const link = resFromImgur.data.data.link;
                     this.setState({ picture: link });

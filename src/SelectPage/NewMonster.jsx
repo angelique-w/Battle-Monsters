@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Col, Row } from 'reactstrap';
 import { Link } from "react-router-dom";
 
-import apiCall from './apiCall';
+import apiCall from '../components/apiCall';
 import CardNewMonster from './CardNewMonster';
 import SelectMonster from './SelectMonster';
 
