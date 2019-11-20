@@ -9,7 +9,8 @@ function NewUser () {
 
 const [userName, setUserName] = useState("")
 const [alreadyExists, setAlreadyExists] = useState(false)
-const [iscreated, setIsCreated] = useState(true)
+const [iscreated, setIsCreated] = useState(false)
+const [isError, setIsError] = useState(false)
 const history = useHistory()
 
 const handleChange = (event) => {
@@ -33,7 +34,7 @@ const handleSubmit = e =>{
     else{
         setAlreadyExists(false)
         apiCall({ method: "POST", url: '/user/adduser', data:{
-            name: userName
+            name : userName.toString()
         },
         headers: {
             "Content-Type": "application/json"
@@ -43,7 +44,20 @@ const handleSubmit = e =>{
         const userid = res[0];
         localStorage.setItem("userId", userid);
         localStorage.setItem("username", userName);
-        setIsCreated(true)
+
+        // checking if username has been well created
+
+        apiCall.get(`/user/gogetuser/${userName}`)
+        .then(res => {
+            const id=res.data[0].id;
+            if (id) {
+                setIsCreated(true)
+            }
+            else{
+                setIsError(true)
+                alert('error while creating the account')
+            }
+        })
     })
     .catch(err => alert(err))
     }    
@@ -70,7 +84,7 @@ return(
                     <h4>This username is already taken. Choose another one and retry</h4>
                 </Row> 
                 : <Row className="justify-content-center m-1 text-warning" >
-                <h4>Choose you username and start playing</h4>
+                <h4>Choose your username and start playing</h4>
                 </Row>}
             </Row>
             <Row className="justify-content-center">
