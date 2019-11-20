@@ -21,11 +21,11 @@ class LoginPage extends Component {
         <>
                 <Header />
                 <Row className="loginPageBody">
-                    <Col xs={8} className="offset-2">
+                    <Col xl={6} className="offset-xl-3 offset-0">
                         <LoginSelect />
                         <LoginCarousel />
                     </Col>
-                    <Col xs={2}>
+                    <Col xl={2} xs={10} className="my-5 offset-1 offset-xl-0">
                         <BetaForm />
                     </Col>
                     
