@@ -1,6 +1,6 @@
 import React from "react";
 import { FormGroup, Label, Input, Button, Form } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import Header from "../components/Header";
 import UsernameBanner from "../components/UsernameBanner";
@@ -141,11 +141,10 @@ class Create extends React.Component {
 // checking if the monsters data are valid
         if(
             this.state.name !=="" &&
-            this.state.picture !=="" &&
-            this.state.attk1_value > 0 &&
-            this.state.attk2_value > 0 &&
-            this.state.attk3_value > 0 &&
-            this.state.attk1_value + this.state.attk2_value + this.state.attk3_value <= this.state.attack
+            !this.state.isAttack1Invalid &&
+            !this.state.isAttack2Invalid &&
+            !this.state.isAttack3Invalid &&
+            (Number(this.state.attk1_value) + Number(this.state.attk2_value) + Number(this.state.attk3_value)) <= this.state.attack
         )
             {
         this.setState({isMonsterValid : true})       
@@ -164,6 +163,7 @@ class Create extends React.Component {
             attk3_name: this.state.attk3_name,
             attk3_value: this.state.attk3_value,
             user_id: this.state.user_id,
+            isCreated : false,
             createdAt: new Date(),
             updatedAt: new Date(),
         },
@@ -173,11 +173,12 @@ class Create extends React.Component {
     })
         .then(res => {
             console.log(res)
+            this.setState({isCreated : true})
         })
         .catch (err => console.log(err));
     } else {
 
-        this.setState({isMonsterValid : false});
+        this.setState({isMonsterValid : false, isCreated : false});
         alert("Your monster does not comply with the requirements. Please retry")
     }
 
@@ -192,7 +193,16 @@ componentDidMount() {
 
 render() {
 
-    const { name, attack, defense, picture, pointsRemaining, attk1_value, attk2_value, attk3_value, newPicture, isMonsterValid } = this.state;
+    const { name, attack, defense, picture, pointsRemaining, attk1_value, attk2_value, attk3_value, newPicture, isMonsterValid, isCreated } = this.state;
+
+
+    if (isCreated){
+        return(
+        
+        <Redirect to="/select" />
+        )
+    } else {
+
 
     return (
         <div>
@@ -273,16 +283,14 @@ render() {
                         <Link to="/select">
                             <Button>Cancel</Button>
                         </Link>
-                        <Link to="/select">
                             <Button onClick={this.postNewMonster}>Create</Button>
-                        </Link>
                     </div>
                     
                 </Form>
             </div>
         </div>
-    )
-
+        )
+    }
 }
     
 }

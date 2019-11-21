@@ -30,7 +30,8 @@ class ExistingMonsters extends Component{
             
         })
         .catch(err => {
-            this.setState({error : err})
+            this.setState({ error : err,
+                            userHasMonster : false})
 
         })
 
