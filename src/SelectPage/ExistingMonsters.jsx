@@ -10,12 +10,14 @@ class ExistingMonsters extends Component{
             this.state = {
                 monsterList : [],
                 error : "",
-                userHasMonster : false
+                userHasMonster : false,
+                user : ""
             }
         }
     componentDidMount(){
 
         const user = localStorage.getItem('username')
+        this.setState({user, user})
         apiCall.get(`/user/gogetthisone/${user}`)
         .then (res => 
             {

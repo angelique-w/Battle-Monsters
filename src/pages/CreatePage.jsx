@@ -22,11 +22,15 @@ class Create extends React.Component {
             description: this.props.location.state.description,
             attk1_name: "attack 1",
             attk1_value: 0,
+            isAttack1Invalid : false,
             attk2_name: "attack 2",
             attk2_value: 0,
+            isAttack2Invalid : false,
             attk3_name: "attack 3",
             attk3_value: 0,
+            isAttack3Invalid : false,
             pointsRemaining: 0,
+            isMonsterValid : true,
             user_id : localStorage.getItem("userId")
         }
 
@@ -89,21 +93,31 @@ class Create extends React.Component {
     handleAttack1(event) {
         const { value } = event.target;
         if (this.state.pointsRemaining - value >= 0) {
-            this.setState({ attk1_value: value, pointsRemaining: this.state.attack - value - this.state.attk2_value - this.state.attk3_value})
+            this.setState({ attk1_value: value, isAttack1Invalid : false, pointsRemaining: this.state.attack - value - this.state.attk2_value - this.state.attk3_value})
+        } else {
+
+            this.setState({isAttack1Invalid : true})
         }
     }
 
     handleAttack2(event) {
         const { value } = event.target;
         if (this.state.pointsRemaining - value >= 0) {
-            this.setState({ attk2_value: value, pointsRemaining: this.state.attack - value - this.state.attk1_value - this.state.attk3_value})
+            this.setState({ attk2_value: value,isAttack2Invalid : false, pointsRemaining: (this.state.attack - value - this.state.attk1_value - this.state.attk3_value)})
+        } else {
+
+            this.setState({isAttack2Invalid : true})
         }
+    
     }
 
     handleAttack3(event) {
         const { value } = event.target;
         if (this.state.pointsRemaining - value >= 0) {
-            this.setState({ attk3_value: value, pointsRemaining: this.state.attack - value - this.state.attk1_value - this.state.attk2_value})
+            this.setState({ attk3_value: value,isAttack3Invalid : false, pointsRemaining: this.state.attack - value - this.state.attk1_value - this.state.attk2_value})
+        } else {
+
+            this.setState({isAttack3Invalid : true})
         }
     }
 
@@ -123,6 +137,19 @@ class Create extends React.Component {
     }
 
     postNewMonster() {
+
+// checking if the monsters data are valid
+        if(
+            this.state.name !=="" &&
+            this.state.picture !=="" &&
+            this.state.attk1_value > 0 &&
+            this.state.attk2_value > 0 &&
+            this.state.attk3_value > 0 &&
+            this.state.attk1_value + this.state.attk2_value + this.state.attk3_value <= this.state.attack
+        )
+            {
+        this.setState({isMonsterValid : true})       
+
         apiCall({ method: "POST", url: '/UserMonster/addusermonster', data:{
             name: this.state.name,
             level: 1,
@@ -138,7 +165,7 @@ class Create extends React.Component {
             attk3_value: this.state.attk3_value,
             user_id: this.state.user_id,
             createdAt: new Date(),
-            updatedAt: new Date()
+            updatedAt: new Date(),
         },
         headers: {
             "Content-Type": "application/json"
@@ -148,7 +175,14 @@ class Create extends React.Component {
             console.log(res)
         })
         .catch (err => console.log(err));
+    } else {
+
+        this.setState({isMonsterValid : false});
+        alert("Your monster does not comply with the requirements. Please retry")
     }
+
+
+}
 
 
 componentDidMount() {
@@ -158,7 +192,7 @@ componentDidMount() {
 
 render() {
 
-    const { name, attack, defense, picture, pointsRemaining, attk1_value, attk2_value, attk3_value, newPicture } = this.state;
+    const { name, attack, defense, picture, pointsRemaining, attk1_value, attk2_value, attk3_value, newPicture, isMonsterValid } = this.state;
 
     return (
         <div>
@@ -167,17 +201,18 @@ render() {
             <div className="">
                 <Form className="d-flex flex-column w-container text-white m-auto border border-white rounded p-3">
                     <h1 className="align-self-center">My monster</h1>
+                    {isMonsterValid ? <></> : <h3>Your monster does not comply with the requirements</h3>}
                     <FormGroup>
                         <Label for="name">Choose a name :</Label>
-                        <Input type="text" name="name" id="name" placeholder={name} onChange={this.handleName} />
+                        <Input type="text" name="name" id="name" required placeholder={name} onChange={this.handleName} />
                     </FormGroup>
                     <FormGroup>
-                        <p>Your acutal image :</p>
+                        <p>Your actual image :</p>
                         <img className="d-block m-auto size-img" src={picture} alt={name}/>
                         <br/>
                         <p>Change your image :</p>
-                        <Label htmlFor="image">Upload an image from your files :</Label>
-                        <Input  type="file" id="image" name="image" ref={this.imageRef}></Input>
+                        <Label htmlFor="image">Upload an image from your files (available soon):</Label>
+                        <Input  type="file" id="image" name="image" disabled ref={this.imageRef}></Input>
                         <Label htmlFor="image">Or with an URL :</Label>
                         <Input type="text" id="image" name="image" value={newPicture} placeholder="URL" onChange={this.handlePictureURL}/>
                         <div className="d-flex mt-2 mb-4">
@@ -196,17 +231,43 @@ render() {
                     <FormGroup>
                         <Label for="attack1">Attack 1 :</Label>
                         <Input type="text" name="attk1_name" id="attk1_name" placeholder="name attack" onChange={this.handleNameAttack1} />
-                        <Input type="number" name="attk1_value" id="attk1_value" min="0" max={attack - attk2_value - attk3_value} placeholder="HP attack" onBlur={this.handleAttack1} />
+                        <Input 
+                        type="number" 
+                        name="attk1_value" 
+                        id="attk1_value" 
+                        required 
+                        min="0" 
+                        max={attack - attk2_value - attk3_value} 
+                        placeholder="HP attack" 
+                        onBlur={this.handleAttack1}
+                        invalid = {this.state.isAttack1Invalid} />
                     </FormGroup>
                     <FormGroup>
                         <Label for="attack2">Attack 2 :</Label>
                         <Input type="text" name="attk2_name" id="attk2_name" placeholder="name attack" onChange={this.handleNameAttack2} />
-                        <Input type="number" name="attk2_value" id="attk2_value" min="0" max={attack - attk1_value - attk3_value} placeholder="HP attack" onBlur={this.handleAttack2} />
+                        <Input 
+                        type="number" 
+                        name="attk2_value" 
+                        id="attk2_value" 
+                        required 
+                        min="0" 
+                        max={attack - attk1_value - attk3_value} 
+                        placeholder="HP attack" 
+                        onBlur={this.handleAttack2} 
+                        invalid = {this.state.isAttack2Invalid}/>
                     </FormGroup>
                     <FormGroup>
                         <Label for="attack1">Attack 3 :</Label>
                         <Input type="text" name="attk3_name" id="attk3_name" placeholder="name attack" onChange={this.handleNameAttack3} />
-                        <Input type="number" name="attk3_value" id="attk3_value" min="0" max={attack - attk1_value - attk2_value} placeholder="HP attack" onBlur={this.handleAttack3} />
+                        <Input 
+                            type="number" 
+                            name="attk3_value" 
+                            id="attk3_value" 
+                            required min="0"
+                            max={attack - attk1_value - attk2_value} 
+                            placeholder="HP attack" 
+                            onBlur={this.handleAttack3}
+                            invalid = {this.state.isAttack3Invalid} />
                     </FormGroup>
                     <div className="d-flex justify-content-around m-3">
                         <Link to="/select">
