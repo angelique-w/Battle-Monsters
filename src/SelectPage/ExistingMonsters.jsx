@@ -49,7 +49,7 @@ class ExistingMonsters extends Component{
 if (userHasMonster){
 
     return(
-        <Row className="border border-warning p-2 m-1 rounded">
+        <Row className="p-2">
             <Row className="justify-content-center w-100"><h2 className="w-100 text-center text-warning">My monsters</h2></Row>
             <Row>
             {monsterList.map(monster => {
