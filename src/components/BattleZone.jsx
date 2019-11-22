@@ -37,7 +37,16 @@ class Battlezone extends Component {
         }
         this.handleAttack = this.handleAttack.bind(this)
     }
-
+    Bloodbath priest
+    Attack Power : 90
+    
+    ￼
+    Stamina : 100
+    
+    Health Points : 340
+    
+    Ready for Battle
+    
     componentDidMount() {
         const user = localStorage.getItem('username');
         apiCall.get(`/user/gogetthisone/${user}`)
@@ -56,10 +65,15 @@ class Battlezone extends Component {
             .then(res => {
                 const monsters = res.data
                 // filtering to remove the null tuples
-                const filteredMonsters = monsters.filter(monster => monster.name !== null)
-                const randomindex = Math.floor(Math.random() * monsters.length)
-                this.setState({ oponentMonster: filteredMonsters[randomindex] })
-                this.setState({maxOppHP : this.state.oponentMonster.defense})
+                const filteredMonsters = monsters.filter(monster => (monster.name !== null && monster.id !== this.state.userMonster.id))
+                console.log("filtered", filteredMonsters);
+                
+                const randomindex = Math.floor(Math.random() * filteredMonsters.length);
+                const oppMonster = filteredMonsters[randomindex];
+                console.log("oppmonster " + oppMonster);
+                
+
+                this.setState({ oponentMonster: oppMonster, maxOppHP : oppMonster.defense })
             })
     }
 
