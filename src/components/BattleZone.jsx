@@ -50,12 +50,15 @@ class Battlezone extends Component {
                 this.setState({ userMonster: monster[0] })
                 console.log(this.state.userMonster)
                 this.setState({maxUserHP : this.state.userMonster.defense})
-            })
+            }) 
+
         apiCall.get(`/item/gogetit`)
             .then(res => {
                 const monsters = res.data
+                // filtering to remove the null tuples
+                const filteredMonsters = monsters.filter(monster => monster.name !== null)
                 const randomindex = Math.floor(Math.random() * monsters.length)
-                this.setState({ oponentMonster: monsters[randomindex] })
+                this.setState({ oponentMonster: filteredMonsters[randomindex] })
                 this.setState({maxOppHP : this.state.oponentMonster.defense})
             })
     }
