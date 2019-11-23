@@ -90,20 +90,27 @@ class Create extends React.Component {
         this.setState({ description: value })
     }
 
-    handleAttack1(event) {
-        const { value } = event.target;
-        const remainPoints = this.state.pointsRemaining
-        if (remainPoints >= value ) {
-            this.setState({ attk1_value: value, isAttack1Invalid : false, pointsRemaining: (remainPoints - value)})
-        } else {
+    handleAttack(nb,event){
 
-            this.setState({isAttack1Invalid : true, attk1_value : remainPoints, pointsRemaining : 0})
-        }
+        
+
+
+
     }
 
+    handleAttack1(event) {
+        const { value } = event.target;
+        if (this.state.pointsRemaining >= value ) {
+            this.setState({ attk1_value: value,isAttack1Invalid : false, pointsRemaining: (this.state.attack - value - this.state.attk2_value - this.state.attk3_value)})
+        } else {
+
+            this.setState({isAttack1Invalid : true})
+        }
+    
+    }
     handleAttack2(event) {
         const { value } = event.target;
-        if (this.state.pointsRemaining - value >= 0) {
+        if (this.state.pointsRemaining >= value) {
             this.setState({ attk2_value: value,isAttack2Invalid : false, pointsRemaining: (this.state.attack - value - this.state.attk1_value - this.state.attk3_value)})
         } else {
 
@@ -114,7 +121,7 @@ class Create extends React.Component {
 
     handleAttack3(event) {
         const { value } = event.target;
-        if (this.state.pointsRemaining - value >= 0) {
+        if (this.state.pointsRemaining >= value) {
             this.setState({ attk3_value: value,isAttack3Invalid : false, pointsRemaining: this.state.attack - value - this.state.attk1_value - this.state.attk2_value})
         } else {
 
@@ -238,7 +245,7 @@ render() {
                     <p className="text-center font-weight-bold lead">HP : {defense}</p>
                     <p className="text-center font-weight-bold lead">Attack points remaining : {pointsRemaining}</p>
 
-                    <p className="text-center font-weight-bold lead">Customize 3 attacks :</p>
+                    <p className="text-center font-weight-bold lead">Customize 3 attacks by spreading the remaining attach points :</p>
                     <FormGroup>
                         <Label for="attack1">Attack 1 :</Label>
                         <Input type="text" name="attk1_name" id="attk1_name" placeholder="name attack" onChange={this.handleNameAttack1} />
@@ -247,9 +254,9 @@ render() {
                         name="attk1_value" 
                         id="attk1_value" 
                         required 
-                        min="0" 
-                        placeholder="HP attack" 
-                        onBlur={this.handleAttack1}
+                        min="0"
+                        placeholder="attack damage" 
+                        onChange={this.handleAttack1}
                         invalid = {this.state.isAttack1Invalid} />
                     </FormGroup>
                     <FormGroup>
@@ -260,10 +267,9 @@ render() {
                         name="attk2_value" 
                         id="attk2_value" 
                         required 
-                        min="0" 
                         max={attack - attk1_value - attk3_value} 
-                        placeholder="HP attack" 
-                        onBlur={this.handleAttack2} 
+                        placeholder="attack damage" 
+                        onChange={this.handleAttack2} 
                         invalid = {this.state.isAttack2Invalid}/>
                     </FormGroup>
                     <FormGroup>
@@ -275,8 +281,8 @@ render() {
                             id="attk3_value" 
                             required min="0"
                             max={attack - attk1_value - attk2_value} 
-                            placeholder="HP attack" 
-                            onBlur={this.handleAttack3}
+                            placeholder="attack damage" 
+                            onChange={this.handleAttack3}
                             invalid = {this.state.isAttack3Invalid} />
                     </FormGroup>
                     <div className="d-flex justify-content-around m-3">

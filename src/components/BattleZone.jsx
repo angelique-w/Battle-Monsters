@@ -37,15 +37,7 @@ class Battlezone extends Component {
         }
         this.handleAttack = this.handleAttack.bind(this)
     }
-    Bloodbath priest
-    Attack Power : 90
-    
-    ￼
-    Stamina : 100
-    
-    Health Points : 340
-    
-    Ready for Battle
+   
     
     componentDidMount() {
         const user = localStorage.getItem('username');
